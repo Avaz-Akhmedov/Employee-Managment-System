@@ -15,7 +15,7 @@ class City extends Model
         return $this->belongsTo(State::class);
     }
 
-    public function employee(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function employees(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Employee::class);
     }

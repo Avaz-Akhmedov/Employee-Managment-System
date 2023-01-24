@@ -10,7 +10,7 @@ class Country extends Model
     use HasFactory;
     protected $fillable = ["country_code", "name"];
 
-    public function employee(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function employees(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Employee::class);
     }

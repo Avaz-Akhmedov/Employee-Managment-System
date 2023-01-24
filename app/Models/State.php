@@ -20,7 +20,7 @@ class State extends Model
         return $this->hasMany(City::class);
     }
 
-    protected function employee(): \Illuminate\Database\Eloquent\Relations\HasMany
+    protected function employees(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Employee::class);
     }
