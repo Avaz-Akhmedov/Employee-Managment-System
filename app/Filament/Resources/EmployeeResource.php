@@ -6,10 +6,15 @@ use App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\Employee;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -23,7 +28,20 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Card::make()->schema([
+                    TextInput::make("firstname")->required(),
+                    TextInput::make("lastname")->required(),
+                    TextInput::make("address")->required(),
+                    Select::make("department_id")->relationship("department","name")->required(),
+                    Select::make("city_id")->relationship("city","name")->required(),
+                    Select::make("state_id")->relationship("state","name")->required(),
+                    Select::make("country_id")->relationship("country","name")->required(),
+                    TextInput::make("zip_code")->required(),
+                    DatePicker::make("birth_date")->required(),
+                    DatePicker::make("date_hired")->required(),
+
+
+                ])
             ]);
     }
 
@@ -31,7 +49,11 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make("firstname")->sortable()->searchable(),
+                TextColumn::make("lastname")->sortable()->searchable(),
+                TextColumn::make("department.name")->sortable()->searchable(),
+                TextColumn::make("date_hired")->date(),
+                TextColumn::make("created_at")->date(),
             ])
             ->filters([
                 //

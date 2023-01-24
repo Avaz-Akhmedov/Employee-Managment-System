@@ -6,10 +6,14 @@ use App\Filament\Resources\CityResource\Pages;
 use App\Filament\Resources\CityResource\RelationManagers;
 use App\Models\City;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -23,7 +27,10 @@ class CityResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Card::make()->schema([
+                   Select::make("state_id")->relationship("state","name"),
+                    TextInput::make("name")
+                ])
             ]);
     }
 
@@ -31,7 +38,10 @@ class CityResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')->sortable(),
+                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('state.name')->sortable(),
+                TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //
