@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EmployeeResource\Pages;
-use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\Employee;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -15,8 +13,8 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 
 class EmployeeResource extends Resource
 {
@@ -49,6 +47,7 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make("id")->sortable(),
                 TextColumn::make("firstname")->sortable()->searchable(),
                 TextColumn::make("lastname")->sortable()->searchable(),
                 TextColumn::make("department.name")->sortable()->searchable(),
@@ -56,7 +55,7 @@ class EmployeeResource extends Resource
                 TextColumn::make("created_at")->date(),
             ])
             ->filters([
-                //
+                SelectFilter::make("department")->relationship("department","name")
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
