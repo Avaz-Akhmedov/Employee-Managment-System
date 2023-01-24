@@ -14,6 +14,12 @@ class State extends Model
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function city(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(City::class);
+    }
+
     protected function employee(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Employee::class);
